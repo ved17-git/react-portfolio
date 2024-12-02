@@ -1,4 +1,8 @@
+import Contact from './Contact'
+import Education from './Education'
 import Navbar from './NavBar'
+import Projects from './Projects'
+import Skills from './Skills'
 import Start from './Start'
 
 function App() {
@@ -7,6 +11,10 @@ function App() {
     <>
       <Navbar/>
       <Start/>
+      <Education/>
+      <Skills/>
+      <Projects/>
+      <Contact/>
     </>
   )
 }
