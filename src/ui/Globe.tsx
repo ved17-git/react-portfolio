@@ -5,7 +5,7 @@ import { cn } from "../utils/cn";
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 800,
-  onRender: () => {}, // Initially empty, will be handled by onRender below
+  onRender: () => {},
   devicePixelRatio: 2,
   phi: 0,
   theta: 0.3,
@@ -19,12 +19,6 @@ const GLOBE_CONFIG: COBEOptions = {
   markers: [{ location: [21.1458, 79.0882], size: 0.1 }],
 };
 
-// Define the type for the render state
-interface RenderState {
-  phi: number;
-  theta: number;
-}
-
 export function Globe({
   className,
   config = GLOBE_CONFIG,
@@ -32,11 +26,12 @@ export function Globe({
   className?: string;
   config?: COBEOptions;
 }) {
-  const phiRef = useRef<number>(0); // Use a ref to persist `phi` across renders
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pointerInteracting = useRef<number | null>(null);
-  const pointerInteractionMovement = useRef(0);
-  const [r, setR] = useState(0);
+  const pointerInteractionMovement = useRef<number>(0);
+  const phiRef = useRef<number>(0);
+  const widthRef = useRef<number>(0);
+  const [r, setR] = useState<number>(0);
 
   const updatePointerInteraction = (value: number | null) => {
     pointerInteracting.current = value;
@@ -53,49 +48,52 @@ export function Globe({
     }
   };
 
+  // Updated onRender with Record<string, any> type for state
   const onRender = useCallback(
-    (state: unknown) => {  // Use 'unknown' type for state
-      const renderState = state as RenderState;  // Cast to RenderState
+    (state: Record<string, unknown>) => {
       if (!pointerInteracting.current) phiRef.current += 0.005;
-      renderState.phi = phiRef.current + r;
+      state.phi = phiRef.current + r;
+      state.width = widthRef.current * 2;
+      state.height = widthRef.current * 2;
     },
     [r]
   );
 
   const onResize = useCallback(() => {
     if (canvasRef.current) {
-      const width = canvasRef.current.offsetWidth;
-      canvasRef.current.width = width * 2;
-      canvasRef.current.height = width * 2;
+      widthRef.current = canvasRef.current.offsetWidth;
     }
   }, []);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
-
-    onResize();
     window.addEventListener("resize", onResize);
+    onResize();
 
-    const canvas = canvasRef.current;
-    const globe = createGlobe(canvas, {
-      ...config,
-      onRender,
-    });
+    let globe: ReturnType<typeof createGlobe> | null = null;
 
-    setTimeout(() => {
-      canvas.style.opacity = "1";
-    }, 0);
+    if (canvasRef.current) {
+      globe = createGlobe(canvasRef.current, {
+        ...config,
+        width: widthRef.current * 2,
+        height: widthRef.current * 2,
+        onRender, // Pass the updated onRender function
+      });
+
+      setTimeout(() => {
+        if (canvasRef.current) canvasRef.current.style.opacity = "1";
+      });
+    }
 
     return () => {
-      globe.destroy();
       window.removeEventListener("resize", onResize);
+      globe?.destroy();
     };
-  }, [config, onResize, onRender]);
+  }, [config, onRender, onResize]);
 
   return (
     <div
       className={cn(
-        "absolute inset-0 mx-auto aspect-[1/1] w-full grid place-items-center",
+        "absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[100%]",
         className
       )}
     >
@@ -105,7 +103,9 @@ export function Globe({
         )}
         ref={canvasRef}
         onPointerDown={(e) =>
-          updatePointerInteraction(e.clientX - pointerInteractionMovement.current)
+          updatePointerInteraction(
+            e.clientX - pointerInteractionMovement.current
+          )
         }
         onPointerUp={() => updatePointerInteraction(null)}
         onPointerOut={() => updatePointerInteraction(null)}

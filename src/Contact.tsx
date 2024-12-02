@@ -43,13 +43,11 @@ function Contact() {
       </h1>
 
 
+    <div className="flex px-[8vh] lg:px-[4vh] gap-10 lg:gap-4 mb-10 w-full md:px-[1vh] sm:flex-col  sm:pt-4 sm:mt-[-4vh]">
 
+      <div className="w-[70%] sm:w-[100%] gap-4 space-y-10 shadow-xl border-[1px] border-zinc-300 p-10 rounded-xl dark:shadow-zinc-800 dark:border-none dark:shadow-md sm:p-3 lg:p-5">
 
-<div className="flex px-[8vh] lg:px-[4vh] gap-10 lg:gap-4 mb-10 w-full md:px-[1vh] sm:flex-col  sm:pt-4 sm:mt-[-4vh] ">
-
-      <div className=" w-[70%] lg:w-[50%] sm:w-full flex-wrap md:flex-nowrap gap-4 space-y-10 shadow-xl border-[1px] border-zinc-300 p-10 rounded-xl dark:shadow-zinc-800 dark:border-none dark:shadow-md sm:p-3 lg:p-5  ">
-         
-    <div className="flex justify-center items-center ">
+      <div className="flex justify-center items-center ">
       <Avatar src={logo} className="w-40 h-40 text-large" />
     </div>
 
@@ -76,20 +74,22 @@ function Contact() {
       {isLoading ? "Loading..." : "Send"}
     </Button>
 
-    </div>
+
+      </div>
 
 
-   <div className="w-[30%] lg:w-[50%]">
 
-    <div className="relative grid place-items-center place-content-center justify-center size-full max-w-lg overflow-hidden rounded-lg border bg-background px-40 pb-40 pt-8 md:shadow-xl sm:h-96 dark:shadow-zinc-800 dark:border-none dark:shadow-md">
-      {/* <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
-        Globe
-      </span> */}
-      <Globe className="flex place-content-center place-items-center justify-center items-center" />
-      <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
-    </div>
+<div className="sm:w-full w-[30%] grid ">
 
-   </div>
+<div className="relative grid place-items-center place-content-center justify-center size-full max-w-lg overflow-hidden rounded-lg border bg-background px-40 pb-40 pt-8 md:shadow-xl sm:h-96 dark:shadow-zinc-800 dark:border-none dark:shadow-md ">
+  {/* <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
+    Globe
+  </span> */}
+  <Globe className="" />
+  <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
+</div>
+
+</div>
 
    </div>
 
