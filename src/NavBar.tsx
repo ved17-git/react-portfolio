@@ -24,6 +24,9 @@ function NavBar() {
 
   const [toggleTheme, setToggleTheme] = useState<boolean>(false);
 
+  function handleDark(){
+    setToggleTheme(!toggleTheme)
+  }
 
 
 
@@ -76,7 +79,7 @@ function NavBar() {
                 transform: toggleTheme ? "rotate(90deg)" : "rotate(0deg)",
                 transition: "transform 0.3s ease-in-out",
               }}
-            >
+            onClick={handleDark}>
               {toggleTheme ? (
                 <FiSun size={20} className="animate-spin-slow" />
               ) : (
