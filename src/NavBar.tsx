@@ -28,8 +28,6 @@ function NavBar() {
     setToggleTheme(!toggleTheme)
   }
 
-
-
   function handleClose() {
     setIsMenuOpen(false);
   }
