@@ -15,8 +15,7 @@ Ved Pandhare <br /> Full-Stack Developer.
 </p>
 
 <Button radius="lg" className="bg-gradient-to-b from-gray-900 to-gray-600 
- text-white shadow-lg mt-8 font-title text-xl px-8 py-6">
-
+ text-white shadow-lg mt-8 font-title text-xl px-8 py-6" onClick={()=>window.open('https://drive.google.com/file/d/1h-7wAP0PRoFl38GHjE3C_L-3mCguIheI/view','_blank')}>
       Resume
 </Button>
 
