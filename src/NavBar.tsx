@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FiMoon } from "react-icons/fi";
+import { FiSun } from "react-icons/fi";
 import {
   Navbar,
   NavbarContent,
@@ -7,7 +9,8 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/react";
-
+import logoLight from "./assets/logo.png";
+import logoDark from "./assets/logoDark.png";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -19,7 +22,7 @@ function NavBar() {
     { name: "Contact", href: "#contact" },
   ];
 
-  // const [toggleTheme, setToggleTheme] = useState<boolean>(false);
+  const [toggleTheme, setToggleTheme] = useState<boolean>(false);
 
 
 
@@ -40,20 +43,20 @@ function NavBar() {
       <NavbarContent className="flex gap-[12vh] sm:justify-between lg:gap-[8vh] md:gap-[4vh]">
         <NavbarItem className="font-title w-5">
           <a color="foreground" href="/" onClick={handleClose}>
-            {/* <img
-              src={logoLight.src}
+            <img
+              src={logoLight}
               alt=""
               className="w-full dark:hidden"
               width={100}
               height={100}
             />
             <img
-              src={logoDark.src}
+              src={logoDark}
               alt=""
               className="w-full hidden dark:block"
               width={100}
               height={100}
-            /> */}
+            />
           </a>
         </NavbarItem>
 
@@ -68,18 +71,17 @@ function NavBar() {
         <NavbarContent justify="end">
           <NavbarItem>
             <button
-           
               className="w-fit hover:bg-[#F4F4F5] p-2 rounded-xl dark:hover:bg-[#27272A] transition-transform duration-300 ease-in-out"
-              // style={{
-              //   transform: toggleTheme ? "rotate(90deg)" : "rotate(0deg)",
-              //   transition: "transform 0.3s ease-in-out",
-              // }}
+              style={{
+                transform: toggleTheme ? "rotate(90deg)" : "rotate(0deg)",
+                transition: "transform 0.3s ease-in-out",
+              }}
             >
-              {/* {toggleTheme ? (
+              {toggleTheme ? (
                 <FiSun size={20} className="animate-spin-slow" />
               ) : (
                 <FiMoon size={20} className="animate-spin-slow" />
-              )} */}
+              )}
             </button>
           </NavbarItem>
 
